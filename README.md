@@ -10,14 +10,15 @@
   - It uses multiprocessing model to speed up the classifing
   - The code can either take a txt,pdf as input and generate the output
   - The code also take path of the directory as input and analyse the text and pdf files and generate output in the csv format
+  - It could only classify the 15 out of 17 goals
   
   
 ## Python Modules Used:
 
-- Sklearn
-- Nltk
-- Tkinter
-- MultiProcessing
+- sklearn
+- nltk
+- tkinter
+- multiprocessing
 
 ## Dependencies
 
@@ -46,6 +47,8 @@
 
 - [Sklearn -SVM](https://scikit-learn.org/stable/modules/svm.html)
 
+- [Dataset](https://zenodo.org/record/5550238/files/osdg-community-dataset-v21-09-30.csv?download=1)
+
 
 ## Screenshots
 
@@ -60,4 +63,3 @@
 
 Contributions, issues, and feature requests are welcome!
 
-Give a ⭐️ if you like this project!
