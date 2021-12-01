@@ -173,14 +173,20 @@ class Controller:
                 self.done = False
                 self.process1 = 9512
                 self.prediction = self.main.recv()
+                maxtemp = 0
                 if(self.isCsv):  # For CSVs
                     temp1 = ""
                     temp2 = ""
 
                     temp1 = self.prediction[0].split('/')[-1]
-                    for x in self.prediction[1]:
+
+                    for y, x in enumerate(self.prediction[1]):
                         temp2 += str(x)+","
-                    self.file.write(temp1+","+temp2+"\n")
+                        if(self.prediction[1][maxtemp] < x):
+                            maxtemp = y
+
+                    self.file.write(
+                        temp1+","+temp2+str(maxtemp+1)+"\n")
                     self.root.after(250, self.control)
                 return
         steps = ["⢿", "⣻", "⣽", "⣾", "⣷", "⣯", "⣟", "⡿"]
@@ -198,7 +204,7 @@ class Controller:
                 self.count %= 8
                 self.txtbox.delete("1.0", "end")
                 self.txtbox.insert(
-                    "1.0", "\n\n\n\n\n\n\n\n\n\n\n \t\t\t\t\t"+steps[self.count]+" Processing "+steps[self.count]+"\n\n \t\t\t"+"Processed "+str(self.fcount+1)+" Out Of "+str(len(self.filelist))+"\n\n\n\t\t\t\t\t Estimated Time To Complete(Sec): "+str((len(self.filelist) - self.fcount+1)*60))
+                    "1.0", "\n\n\n\n\n\n\n\n \t\t\t\t"+steps[self.count]+" Processing "+steps[self.count]+"\n\n \t\t\t\t"+"Processed "+str(self.fcount+1)+" Out Of "+str(len(self.filelist))+"\n\n\n\t\t\t\tEstimated Time To Complete(Sec): "+str(((len(self.filelist) - self.fcount))*60)+"\n\n\n (The Focus Is On Creating A DataSet Analysis Here, So in Output Only 1st Rank Goals Are Generated)")
                 self.root.after(250, self.control)
 
                 if(not self.process1.is_alive()):
@@ -216,6 +222,8 @@ class Controller:
 
                     if(self.isCsv):
                         self.file = open('data'+str(time.time())+'.csv', "a")
+                        self.file.write(
+                            "Document_Name,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,Max_Goal\n")
 
                 if(len(self.filelist) != self.fcount):
 
@@ -229,7 +237,7 @@ class Controller:
                     self.txtbox.delete("1.0", "end")
                     if(self.isCsv):
                         self.txtbox.insert(
-                            "1.0", "\n\n\n\t\t\t A New CSV File Is Created...")
+                            "1.0", "\n\n\n\n\n\n\n\n\n\n\n \t\t\t\t A New CSV File Is Created...")
                         self.file.close()
         else:
 
